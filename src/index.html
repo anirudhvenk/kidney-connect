@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Dapp University | Todo List</title>
+
+    <!-- Bootstrap -->
+    <link href="vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style>
+        main {
+            margin-top: 60px;
+        }
+
+        #content {
+            display: none;
+        }
+
+        button {
+            width: 350px;
+        }
+
+        input {
+            /* width: 350px; */
+            margin-bottom: 10px;
+            /* float: left; */
+        }
+
+        ul {
+            margin-bottom: 0px;
+        }
+
+        .wrapper {
+            text-align: center;
+            width: auto;
+            margin: 20px;
+        }
+
+        .inner {
+            display: inline-block;
+        }
+
+        .submitInfo {
+            color: green;
+        }
+
+
+        #completedTaskList .content {
+            color: grey;
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="http://www.dappuniversity.com/free-download"
+            target="_blank">Dapp University | Todo List</a>
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap d-none d-sm-none d-sm-block">
+                <small><a class="nav-link" href="#"><span id="account"></span></a></small>
+            </li>
+        </ul>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <main role="main" class="col-lg-12 d-flex justify-content-center">
+                <div id="loader" class="text-center">
+                    <p class="text-center">Loading...</p>
+                </div>
+                <div id="content">
+                    <div style="text-align:center;" id="wrapper">
+                        <div class="inner">
+                            <h1 class="text-center">Donor Info</h1>
+                            <input id="dage" type="text" class="form-control" placeholder="Age" required>
+                            <input id="dbloodType" type="text" class="form-control" placeholder="Blood Type" required>
+                            <input id="dpra" type="text" class="form-control" placeholder="PRA" required>
+                            <div style="display:flex; justify-content:center; width:100%; text-align:center;">
+                                <div>
+                                    <input id="dhla-a1" type="text" class="form-control" placeholder="HLA-A1" required>
+                                    <input id="dhla-b1" type="text" class="form-control" placeholder="HLA-B1" required>
+                                    <input id="dhla-dr1" type="text" class="form-control" placeholder="HLA-DR1"
+                                        required>
+                                    <input id="dhla-dq1" type="text" class="form-control" placeholder="HLA-DQ1"
+                                        required>
+                                </div>
+                                <div>
+                                    <input id="dhla-a2" type="text" class="form-control" placeholder="HLA-A2" required>
+                                    <input id="dhla-b2" type="text" class="form-control" placeholder="HLA-B2" required>
+                                    <input id="dhla-dr2" type="text" class="form-control" placeholder="HLA-DR2"
+                                        required>
+                                    <input id="dhla-dq2" type="text" class="form-control" placeholder="HLA-DQ2"
+                                        required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="inner">
+                            <h1 class="text-center">Recipient Info</h1>
+                            <input id="rage" type="text" class="form-control" placeholder="Age" required>
+                            <input id="rbloodType" type="text" class="form-control" placeholder="Blood Type" required>
+                            <input id="rpra" type="text" class="form-control" placeholder="PRA" required>
+                            <div style="display:flex; justify-content:center; width:100%; text-align:center;">
+                                <div>
+                                    <input id="rhla-a1" type="text" class="form-control" placeholder="HLA-A1" required>
+                                    <input id="rhla-b1" type="text" class="form-control" placeholder="HLA-B1" required>
+                                    <input id="rhla-dr1" type="text" class="form-control" placeholder="HLA-DR1"
+                                        required>
+                                    <input id="rhla-dq1" type="text" class="form-control" placeholder="HLA-DQ1"
+                                        required>
+                                </div>
+                                <div>
+                                    <input id="rhla-a2" type="text" class="form-control" placeholder="HLA-A2" required>
+                                    <input id="rhla-b2" type="text" class="form-control" placeholder="HLA-B2" required>
+                                    <input id="rhla-dr2" type="text" class="form-control" placeholder="HLA-DR2"
+                                        required>
+                                    <input id="rhla-dq2" type="text" class="form-control" placeholder="HLA-DQ2"
+                                        required>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <button id="submitInfo" onClick="App.createTask(); return false;">Submit</button>
+
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="vendor/web3/dist/web3.min.js"></script>
+    <script src="vendor/truffle-contract/dist/truffle-contract.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
