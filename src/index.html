@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Dapp University | Todo List</title>
+    <title>Kidney Connect</title>
 
     <!-- Bootstrap -->
     <link href="vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -51,10 +51,9 @@
             display: inline-block;
         }
 
-        .submitInfo {
-            color: green;
+        .stack {
+            position: absolute;
         }
-
 
         #completedTaskList .content {
             color: grey;
@@ -66,7 +65,7 @@
 <body>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="http://www.dappuniversity.com/free-download"
-            target="_blank">Dapp University | Todo List</a>
+            target="_blank">Kidney Connect</a>
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap d-none d-sm-none d-sm-block">
                 <small><a class="nav-link" href="#"><span id="account"></span></a></small>
@@ -80,7 +79,21 @@
                     <p class="text-center">Loading...</p>
                 </div>
                 <div id="content">
-                    <div style="text-align:center;" id="wrapper">
+                    <div id="success" style="visibility: hidden; position: absolute;">
+                        <h1 class="text-center">Match Found!</h1>
+                        <p class="text-center" id="donorID">
+                        <p class="text-center" id="recipientID">
+                        <div style="text-align: center;">
+                            <input type="button" style="width: 350px;" value="Back" onClick="window.location.reload();">
+                        </div>
+                    </div>
+                    <div id="fail" style="visibility: hidden; position: absolute;">
+                        <h1 class="text-center">Match Not Found!</h1>
+                        <div style="text-align: center;">
+                            <input type="button" style="width: 350px;" value="Back" onClick="window.location.reload();">
+                        </div>
+                    </div>
+                    <div style="text-align:center; visibility: visible;" id="wrapper">
                         <div class="inner">
                             <h1 class="text-center">Donor Info</h1>
                             <input id="dage" type="text" class="form-control" placeholder="Age" required>
@@ -130,9 +143,11 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                    <button id="submitInfo" onClick="App.createTask(); return false;">Submit</button>
+                    <div style="text-align: center; visibility: visible;">
+                        <input type="button" style="width: 350px;" value="Submit"
+                            onClick="App.createTask(); return false;" id="create">
+                    </div>
 
                 </div>
             </main>

@@ -76,52 +76,61 @@ App = {
         App.setLoading(false)
     },
 
-    // renderTasks: async () => {
-    //     // Load the total task count from the blockchain
-    //     const taskCount = await App.todoList.taskCount()
-    //     const $taskTemplate = $('.taskTemplate')
+    renderTasks: async (donorID, recipientID) => {
+        if (donorID || recipientID) {
+            document.getElementById('wrapper').style.visibility = 'hidden';
+            document.getElementById('create').style.visibility = 'hidden';
+            document.getElementById('success').style.visibility = 'visible';
+            document.getElementById('success').style.position = 'relative';
 
-    //     // Render out each task with a new task template
-    //     for (var i = 1; i <= taskCount; i++) {
-    //         // Fetch the task data from the blockchain
-    //         const task = await App.todoList.tasks(i)
-    //         const taskId = task[0].toNumber()
-    //         const taskContent = task[1]
-    //         const taskCompleted = task[2]
-
-    //         // Create the html for the task
-    //         const $newTaskTemplate = $taskTemplate.clone()
-    //         $newTaskTemplate.find('.content').html(taskContent)
-    //         $newTaskTemplate.find('input')
-    //             .prop('name', taskId)
-    //             .prop('checked', taskCompleted)
-    //             .on('click', App.toggleCompleted)
-
-    //         // Put the task in the correct list
-    //         if (taskCompleted) {
-    //             $('#completedTaskList').append($newTaskTemplate)
-    //         } else {
-    //             $('#taskList').append($newTaskTemplate)
-    //         }
-
-    //         // Show the task
-    //         $newTaskTemplate.show()
-    //     }
-    // },
+            document.getElementById('donorID').innerHTML = `Donor ID: ${donorID}`;
+            document.getElementById('recipientID').innerHTML = `Recipient ID: ${recipientID}`;
+        } else {
+            document.getElementById('wrapper').style.visibility = 'hidden';
+            document.getElementById('create').style.visibility = 'hidden';
+            document.getElementById('fail').style.visibility = 'visible';
+            document.getElementById('fail').style.position = 'relative';
+        }
+    },
 
     createTask: async () => {
         // App.setLoading(true)
-        const content = $('#newTask').val()
         const donorID = App.uuidv4()
         const recipientID = App.uuidv4()
         const recipientHealth = {
-            age: 10
+            age: $('#rage').val(),
+            PRA: $('#rpra').val(),
+            bloodType: $('#rbloodType').val(),
+            HLAA1: $('#rhla-a1').val(),
+            HLAA2: $('#rhla-a2').val(),
+            HLAB1: $('#rhla-b1').val(),
+            HLAB2: $('#rhla-b2').val(),
+            HLADR1: $('#rhla-dr1').val(),
+            HLADR2: $('#rhla-dr2').val(),
+            HLADQ1: $('#rhla-dq1').val(),
+            HLADQ2: $('#rhla-dq2').val()
+        }
+        const donorHealth = {
+            age: $('#dage').val(),
+            PRA: $('#dpra').val(),
+            bloodType: $('#dbloodType').val(),
+            HLAA1: $('#dhla-a1').val(),
+            HLAA2: $('#dhla-a2').val(),
+            HLAB1: $('#dhla-b1').val(),
+            HLAB2: $('#dhla-b2').val(),
+            HLADR1: $('#dhla-dr1').val(),
+            HLADR2: $('#dhla-dr2').val(),
+            HLADQ1: $('#dhla-dq1').val(),
+            HLADQ2: $('#dhla-dq2').val()
         }
 
-        await App.certificateLedger.createCert(App.account, recipientID, recipientHealth)
-        let age = await App.certificateLedger.getRecipientHealth(0)
-        console.log(age)
-        // window.location.reload()
+
+        const splitAt = index => x => [x.slice(0, index), x.slice(index)]
+
+
+        await App.certificateLedger.createCert(recipientID, donorID, recipientHealth, donorHealth, App.account)
+        const match = splitAt(35)(await App.certificateLedger.findMatch(App.account))
+        await App.renderTasks(match[0], match[1]);
     },
 
     uuidv4() {
