@@ -1,0 +1,3 @@
+# Kidney Connect
+
+In order to run this program, clone this repository into your desktop. Then, make sure to install [nodejs](https://nodejs.org/en/), and the [ganache framework](https://www.trufflesuite.com/ganache). Open the ganache app and click quickstart in order to create a new blockchain network. Next, install the [MetaMask](https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en) extension and enable it on chrome. Import the ganache network into metamask by copying the twelve word mnemonic and make sure MetaMask is activated with the first ganache account in the blockchain by importing its private key. Finally, run `npm install` in the repository, and then `truffle migrate`. Load the app by running `npm run dev`.
